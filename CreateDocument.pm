@@ -22,6 +22,7 @@ sub get_etherpad_contents {
     my $etherpad_request = $etherpad_ua->get($first_found_etherpad);
 
     my $is_front_end_study_hall = ($first_found_etherpad =~ m/front-end-study-hall/);
+    my $is_photos_popup = ($first_found_etherpad =~ m/-photos-/);
 
     if (!$etherpad_request->is_success) {
         return ("Etherpad could not be retrieved.", 1);
@@ -83,6 +84,8 @@ sub get_etherpad_contents {
     if ($is_front_end_study_hall) {
         $footer .= "{{Front End Study Hall}}\n\n";
         $footer .= "[[Category:Front_end]]\n";
+    } elsif ($is_photos_popup)  {
+        $footer .= "[[Category:Photos]]\n";
     } else {
         $footer .= "{{Homebrew Website Club}}\n\n";
     }
